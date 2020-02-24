@@ -1,4 +1,5 @@
 import React from 'react';
+import Game from './Game';
 
 const GameList = ({ gameList }) => {
   return (
@@ -6,7 +7,7 @@ const GameList = ({ gameList }) => {
       {gameList.length === 0 ? (
         <h1>No games found</h1>
       ) : (
-        gameList.map(game => <div key={game.id}>{game.name}</div>)
+        gameList.map(game => <Game key={game.appid} game={game} />)
       )}
     </div>
   );

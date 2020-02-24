@@ -1,6 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import Searchbar from "./Searchbar";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Searchbar from './Searchbar';
+import '../style.css';
 
 const App = () => {
   return (
@@ -10,4 +11,4 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.querySelector("#root"));
+ReactDOM.render(<App />, document.querySelector('#root'));
