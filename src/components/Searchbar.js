@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import GameList from './GameList';
 
 const Searchbar = () => {
   const [searchString, setSearchString] = useState('');
-  const [query, setQuery] = useState('');
   const [gameList, setGameList] = useState([]);
-
-  useEffect(() => {
-    console.log(gameList);
-  });
 
   const requestGames = searchString => {
     axios
-      .get('http://localhost:3001/game/')
-      .then(({ data }) => setGameList(data))
+      .get(`http://localhost:3001/game/${searchString}`)
+      .then(({ data }) => {
+        setGameList(data);
+      })
       .catch(e => console.log(e));
   };
 
@@ -32,6 +30,7 @@ const Searchbar = () => {
           onChange={e => setSearchString(e.target.value)}
         />
       </form>
+      <GameList gameList={gameList} />
     </div>
   );
 };

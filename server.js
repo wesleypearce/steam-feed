@@ -16,13 +16,13 @@ app.get('/game/:query', (req, res) => {
   const query = req.params.query.toLowerCase();
   axios
     .get('https://api.steampowered.com/ISteamApps/GetAppList/v2/')
-    .then(data =>
+    .then(({ data }) => {
       res.send(
-        data.data.applist.apps.filter(game =>
+        data.applist.apps.filter(game =>
           game.name.toLowerCase().includes(query)
         )
-      )
-    )
+      );
+    })
     .catch(e => console.log(e));
 });
 
