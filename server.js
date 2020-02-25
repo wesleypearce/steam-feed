@@ -12,18 +12,31 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/game/:query', (req, res) => {
-  const query = req.params.query.toLowerCase();
-  axios
-    .get('https://api.steampowered.com/ISteamApps/GetAppList/v2/')
-    .then(({ data }) => {
-      res.send(
-        data.applist.apps.filter(game =>
-          game.name.toLowerCase().includes(query)
-        )
-      );
-    })
-    .catch(e => console.log(e));
+app.get('/game', (req, res) => {
+  const query = req.query.query;
+  const id = req.query.id;
+
+  if (id) {
+    axios
+      .get(
+        'https://store.steampowered.com/api/appdetails?appids=' + req.query.id
+      )
+      .then(({ data }) => {
+        res.send(data);
+      })
+      .catch(e => console.log(e));
+  } else {
+    axios
+      .get('https://api.steampowered.com/ISteamApps/GetAppList/v2/')
+      .then(({ data }) => {
+        res.send(
+          data.applist.apps.filter(game =>
+            game.name.toLowerCase().includes(query)
+          )
+        );
+      })
+      .catch(e => console.log(e));
+  }
 });
 
 app.listen(3001, () => console.log('Server running on 3001'));
